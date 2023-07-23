@@ -9,7 +9,7 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  MapLatLng location = new MapLatLng(-6.809187923753865, 107.14968732222341);
+  MapLatLng location = const MapLatLng(-6.809187923753865, 107.14968732222341);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _DetailPageState extends State<DetailPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 300,
               child: SfMaps(
                 layers: [

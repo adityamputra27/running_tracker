@@ -4,7 +4,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:running_tracker/models/lari_detail_model.dart';
 import 'package:running_tracker/models/lari_model.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
 
@@ -14,13 +13,16 @@ class DatabaseInstance {
 
   // Tabel Lari
   final String lariTableName = "lari";
+  // ignore: non_constant_identifier_names
   final String id_lari = "id";
   final String mulai = "mulai";
   final String selesai = "selesai";
 
   // Tabel Lari Detail
   final String lariDetailTableName = "lari_detail";
+  // ignore: non_constant_identifier_names
   final String id_lari_detail = "id";
+  // ignore: non_constant_identifier_names
   final String lari_id = "lari_id";
   final String latitude = "latitude";
   final String longitude = "longitude";
@@ -79,9 +81,9 @@ class DatabaseInstance {
 
     List<MapLatLng> arrayMapLatLng = [];
 
-    result.forEach((element) {
+    for (var element in result) {
       arrayMapLatLng.add(MapLatLng(element.latitude, element.longitude));
-    });
+    }
 
     return arrayMapLatLng;
   }
