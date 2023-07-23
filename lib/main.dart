@@ -18,9 +18,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +38,14 @@ class HomePage extends StatelessWidget {
             Card(
               child: ListTile(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DetailPage()));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => const DetailPage()))
+                      .then(
+                    (value) {
+                      setState(() {});
+                    },
+                  );
                 },
                 leading: const Icon(Icons.map),
                 title: const Column(
@@ -56,8 +67,14 @@ class HomePage extends StatelessWidget {
             Card(
               child: ListTile(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DetailPage()));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => const DetailPage()))
+                      .then(
+                    (value) {
+                      setState(() {});
+                    },
+                  );
                 },
                 leading: const Icon(Icons.map),
                 title: const Column(
@@ -79,8 +96,14 @@ class HomePage extends StatelessWidget {
             Card(
               child: ListTile(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DetailPage()));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(
+                          builder: (context) => const DetailPage()))
+                      .then(
+                    (value) {
+                      setState(() {});
+                    },
+                  );
                 },
                 leading: const Icon(Icons.map),
                 title: const Column(
@@ -104,8 +127,13 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CreatePage()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const CreatePage()))
+              .then(
+            (value) {
+              setState(() {});
+            },
+          );
         },
         child: const Icon(
           Icons.navigation,
