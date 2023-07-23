@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: DetailPage(),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -27,13 +27,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Running Tracker'),
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
             Card(
               child: ListTile(
-                leading: Icon(Icons.map),
-                title: Column(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DetailPage()));
+                },
+                leading: const Icon(Icons.map),
+                title: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -51,8 +55,12 @@ class HomePage extends StatelessWidget {
             ),
             Card(
               child: ListTile(
-                leading: Icon(Icons.map),
-                title: Column(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DetailPage()));
+                },
+                leading: const Icon(Icons.map),
+                title: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -70,8 +78,12 @@ class HomePage extends StatelessWidget {
             ),
             Card(
               child: ListTile(
-                leading: Icon(Icons.map),
-                title: Column(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DetailPage()));
+                },
+                leading: const Icon(Icons.map),
+                title: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -91,7 +103,10 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CreatePage()));
+        },
         child: const Icon(
           Icons.navigation,
         ),
