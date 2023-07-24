@@ -69,8 +69,9 @@ class _HomePageState extends State<HomePage> {
                               onTap: () {
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            const DetailPage()))
+                                        builder: (context) => DetailPage(
+                                              lariId: snapshot.data![index].id,
+                                            )))
                                     .then(
                                   (value) {
                                     setState(() {});
