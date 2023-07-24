@@ -87,4 +87,11 @@ class DatabaseInstance {
 
     return arrayMapLatLng;
   }
+
+  Future<int> updateLari(int lariId, Map<String, dynamic> row) async {
+    final query = await _database!
+        .update(lariTableName, row, where: '$id_lari = ?', whereArgs: [lariId]);
+
+    return query;
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:running_tracker/create_page.dart';
 import 'package:running_tracker/detail_page.dart';
+import 'package:running_tracker/models/database/database_instance.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +28,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  DatabaseInstance databaseInstance = DatabaseInstance();
+
+  @override
+  void initState() {
+    databaseInstance.database();
+
+    initDatabase();
+    super.initState();
+  }
+
+  Future initDatabase() async {
+    await databaseInstance.database();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,93 +52,57 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            Card(
-              child: ListTile(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(
-                          builder: (context) => const DetailPage()))
-                      .then(
-                    (value) {
-                      setState(() {});
-                    },
-                  );
-                },
-                leading: const Icon(Icons.map),
-                title: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mulai : 2023-07-23 19:00:00',
-                    ),
-                    Text(
-                      'Selesai : 2023-07-23 21:00:00',
-                    ),
-                    Text(
-                      'Durasi : 2 jam 0 menit',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(
-                          builder: (context) => const DetailPage()))
-                      .then(
-                    (value) {
-                      setState(() {});
-                    },
-                  );
-                },
-                leading: const Icon(Icons.map),
-                title: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mulai : 2023-07-23 19:00:00',
-                    ),
-                    Text(
-                      'Selesai : 2023-07-23 21:00:00',
-                    ),
-                    Text(
-                      'Durasi : 2 jam 0 menit',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(
-                          builder: (context) => const DetailPage()))
-                      .then(
-                    (value) {
-                      setState(() {});
-                    },
-                  );
-                },
-                leading: const Icon(Icons.map),
-                title: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mulai : 2023-07-23 19:00:00',
-                    ),
-                    Text(
-                      'Selesai : 2023-07-23 21:00:00',
-                    ),
-                    Text(
-                      'Durasi : 2 jam 0 menit',
-                    ),
-                  ],
-                ),
-              ),
-            )
+            FutureBuilder(
+                future: databaseInstance.getAllLari(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    if (snapshot.hasData) {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) => Card(
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DetailPage()))
+                                    .then(
+                                  (value) {
+                                    setState(() {});
+                                  },
+                                );
+                              },
+                              leading: const Icon(Icons.map),
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Mulai : ${DateFormat('dd-MM-yyyy H:mm:ss').format(DateTime.parse(snapshot.data![index].mulai))}',
+                                  ),
+                                  Text(
+                                    'Selesai : ${DateFormat('dd-MM-yyyy H:mm:ss').format(DateTime.parse(snapshot.data![index].selesai))}',
+                                  ),
+                                  Text(
+                                    'Durasi : ${DateTime.parse(snapshot.data![index].selesai).difference(DateTime.parse(snapshot.data![index].mulai)).inSeconds.toString()} detik',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }
+                }),
           ],
         ),
       ),
